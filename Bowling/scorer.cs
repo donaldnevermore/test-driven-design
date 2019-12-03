@@ -1,51 +1,75 @@
-class Scorer {
-  constructor () {
-    this.ball = 0
-    this.throws = []
-    this.currentThrow = 0
-  }
+namespace Game
+{
+    public class Scorer
+    {
+        private int ball;
+        private int[] throws = new int[21];
+        private int currentThrow;
 
-  addThrow (pins) {
-    this.throws.push(pins)
-    this.currentThrow++
-  }
+        public void AddThrow(int pins)
+        {
+            throws[currentThrow] = pins;
+            currentThrow++;
+        }
 
-  scoreForFrame (theFrame) {
-    this.ball = 0
-    let score = 0
-    for (let currentFrame = 0; currentFrame < theFrame; currentFrame++) {
-      if (this.strike()) {
-        // 全中
-        score += 10 + this.nextTwoBallsForStrike
-        this.ball++
-      } else if (this.spare()) {
-        score += 10 + this.nextBallForSpare
-        this.ball += 2
-      } else {
-        score += this.twoBallsInFrame
-        this.ball += 2
-      }
+        public int ScoreForFrame(int theFrame)
+        {
+            ball = 0;
+            int score = 0;
+            for (int currentFrame = 0; currentFrame < theFrame; currentFrame++)
+            {
+                if (Strike())
+                {
+                    // 全中
+                    score += 10 + NextTwoBallsForStrike;
+                    ball++;
+                }
+                else if (Spare())
+                {
+                    score += 10 + NextBallForSpare;
+                    ball += 2;
+                }
+                else
+                {
+                    score += TwoBallsInFrame;
+                    ball += 2;
+                }
+            }
+            return score;
+        }
+
+        private bool Strike()
+        {
+            return throws[ball] == 10;
+        }
+
+        private int NextTwoBallsForStrike
+        {
+            get
+            {
+                return throws[ball + 1] + throws[ball + 2];
+            }
+        }
+
+        private int TwoBallsInFrame
+        {
+            get
+            {
+                return throws[ball] + throws[ball + 1];
+            }
+        }
+
+        private bool Spare()
+        {
+            return throws[ball] + throws[ball + 1] == 10;
+        }
+
+        private int NextBallForSpare
+        {
+            get
+            {
+                return throws[ball + 2];
+            }
+        }
     }
-    return score
-  }
-
-  strike () {
-    return this.throws[this.ball] === 10
-  }
-
-  get nextTwoBallsForStrike () {
-    return this.throws[this.ball + 1] + this.throws[this.ball + 2]
-  }
-
-  get twoBallsInFrame () {
-    return this.throws[this.ball] + this.throws[this.ball + 1]
-  }
-
-  spare () {
-    return this.throws[this.ball] + this.throws[this.ball + 1] === 10
-  }
-
-  get nextBallForSpare () {
-    return this.throws[this.ball + 2]
-  }
 }

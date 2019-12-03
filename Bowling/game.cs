@@ -1,57 +1,62 @@
-const Scorer = require('./scorer')
+namespace Game
+{
+    public class Game
+    {
 
-class Game {
-  constructor () {
-    this.throws = []
-    this.currentFrame = 0
-    this.isFirstThrow = true
-    this.scorer = new Scorer()
-  }
+        private int currentFrame = 0;
+        private bool isFirstThrow = true;
+        private Scorer scorer = new Scorer();
 
-  get score () {
-    return this.scoreForFrame(this.currentFrame)
-  }
+        public int Score
+        {
+            get
+            {
+                return ScoreForFrame(currentFrame);
+            }
+        }
 
-  add (pins) {
-    this.scorer.addThrow(pins)
-    this.adjustCurrentFrame(pins)
-  }
+        public void Add(int pins)
+        {
+            scorer.AddThrow(pins);
+            adjustCurrentFrame(pins);
+        }
 
-  adjustCurrentFrame (pins) {
-    if (this.lastBallInFrame(pins)) {
-      this.advanceFrame()
-      this.isFirstThrow = true
-    } else {
-      this.isFirstThrow = false
+        private void adjustCurrentFrame(int pins)
+        {
+            if (LastBallInFrame(pins))
+            {
+                AdvanceFrame();
+            }
+            else
+            {
+                isFirstThrow = false;
+            }
+        }
+
+        private bool LastBallInFrame(int pins)
+        {
+            return Strike(pins) || !isFirstThrow;
+        }
+
+        private bool Strike(int pins)
+        {
+            return isFirstThrow && pins == 10;
+        }
+
+
+        private void AdvanceFrame()
+        {
+            currentFrame++;
+            if (currentFrame > 10)
+            {
+                currentFrame = 10;
+            }
+        }
+
+        public int ScoreForFrame(int theFrame)
+        {
+            return scorer.ScoreForFrame(theFrame);
+        }
     }
-  }
 
-  lastBallInFrame (pins) {
-    return this.strike(pins) || !this.isFirstThrow
-  }
-
-  strike (pins) {
-    return this.isFirstThrow && pins === 10
-  }
-
-  adjustFrameForStrike (pins) {
-    if (pins === 10) {
-      this.advanceFrame()
-      return true
-    }
-    return false
-  }
-
-  advanceFrame () {
-    this.currentFrame++
-    if (this.currentFrame > 10) {
-      this.currentFrame = 10
-    }
-  }
-
-  scoreForFrame (theFrame) {
-    return this.scorer.scoreForFrame(theFrame)
-  }
 }
-
-module.exports = Game

@@ -1,15 +1,17 @@
-class Frame {
-  constructor () {
-    this._score = 0
-  }
+namespace Frame
+{
+    public class Frame
+    {
+        public Frame()
+        {
+            Score = 0;
+        }
 
-  get score () {
-    return this._score
-  }
+        public int Score { get; private set; }
 
-  add (pins) {
-    this._score += pins
-  }
+        public void Add(int pins)
+        {
+            Score += pins;
+        }
+    }
 }
-
-module.exports = Frame

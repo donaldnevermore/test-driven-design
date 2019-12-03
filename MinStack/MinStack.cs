@@ -1,47 +1,66 @@
-class MinStack {
-  constructor () {
-    this.data = []
-    this.mins = []
-  }
+using System;
+using System.Collections.Generic;
 
-  push (num) {
-    this.data.push(num)
+namespace MinStack
+{
+    public class MinStack
+    {
+        private Stack<int> data;
+        private Stack<int> mins;
 
-    if (this.mins.length === 0) {
-      this.mins.push(0)
-    } else {
-      let min = this.getMin()
-      if (num < min) {
-        this.mins.push(this.data.length - 1)
-      }
+        public MinStack()
+        {
+            data = new Stack<int>();
+            mins = new Stack<int>();
+        }
+
+        public void Push(int num)
+        {
+            data.Push(num);
+
+            if (mins.Count == 0)
+            {
+                mins.Push(0);
+            }
+            else
+            {
+                int min = GetMin();
+                if (num < min)
+                {
+                    mins.Push(data.Count - 1);
+                }
+            }
+        }
+
+        public int Pop()
+        {
+            if (data.Count == 0)
+            {
+                throw new Exception("空栈");
+            }
+
+            int popIndex = data.Count - 1;
+            int minIndex = mins.ToArray()[mins.Count - 1];
+
+            if (popIndex == minIndex)
+            {
+
+                mins.Pop();
+            }
+
+            return data.Pop();
+        }
+
+        public int GetMin()
+        {
+            if (mins.Count == 0)
+            {
+                throw new Exception("空栈");
+            }
+
+            int minIndex = mins.ToArray()[mins.Count - 1];
+            return data.ToArray()[minIndex];
+        }
     }
-  }
-
-  pop () {
-    if (this.data.length === 0) {
-      throw new Error('空栈')
-    }
-
-    let popIndex = this.data.length - 1
-    let minIndex = this.mins[this.mins.length - 1]
-
-    if (popIndex === minIndex) {
-      this.mins.pop()
-    }
-
-    return this.data.pop()
-  }
-
-  getMin () {
-    if (this.mins.length === 0) {
-      throw new Error('空栈')
-    }
-
-    let minIndex = this.mins[this.mins.length - 1]
-
-    return this.data[minIndex]
-  }
 }
-
-module.exports = MinStack
 
