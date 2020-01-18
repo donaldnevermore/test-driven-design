@@ -1,29 +1,23 @@
 using NUnit.Framework;
 
-namespace Game.Test
-{
+namespace Game.Test {
     [TestFixture]
-    public class GameTest
-    {
-
+    public class GameTest {
         private Game game;
 
         [SetUp]
-        public void SetUp()
-        {
+        public void SetUp() {
             game = new Game();
         }
 
         [Test]
-        public void TestTwoThrowsNoMark()
-        {
+        public void TestTwoThrowsNoMark() {
             game.Add(5);
             game.Add(4);
             Assert.AreEqual(game.Score, 9);
         }
 
-        public void TestFourThrowsNoMark()
-        {
+        public void TestFourThrowsNoMark() {
             game.Add(5);
             game.Add(4);
             game.Add(7);
@@ -31,13 +25,9 @@ namespace Game.Test
             Assert.AreEqual(game.Score, 18);
             Assert.AreEqual(game.ScoreForFrame(1), 9);
             Assert.AreEqual(game.ScoreForFrame(2), 18);
-
         }
 
-        public void TestSimpleSpare()
-        {
-
-
+        public void TestSimpleSpare() {
             game.Add(3);
             game.Add(7);
             game.Add(3);
@@ -45,8 +35,7 @@ namespace Game.Test
         }
 
         [Test]
-        public void TestSimpleFrameAfterSpare()
-        {
+        public void TestSimpleFrameAfterSpare() {
             game.Add(3);
             game.Add(7);
             game.Add(3);
@@ -57,8 +46,7 @@ namespace Game.Test
         }
 
         [Test]
-        public void TestSimpleStrike()
-        {
+        public void TestSimpleStrike() {
             game.Add(10);
             game.Add(3);
             game.Add(6);
@@ -67,23 +55,21 @@ namespace Game.Test
         }
 
         [Test]
-        public void TestPerfectGame()
-        {
-            for (int i = 0; i < 12; i++)
-            {
+        public void TestPerfectGame() {
+            for (int i = 0; i < 12; i++) {
                 game.Add(10);
             }
+
             Assert.AreEqual(300, game.Score);
         }
 
         [Test]
-        public void TestEndOfArray()
-        {
-            for (int i = 0; i < 9; i++)
-            {
+        public void TestEndOfArray() {
+            for (int i = 0; i < 9; i++) {
                 game.Add(0);
                 game.Add(0);
             }
+
             game.Add(2);
             game.Add(8); // 10th frame spare
             game.Add(10); // Strike in last position of array.
@@ -91,8 +77,7 @@ namespace Game.Test
         }
 
         [Test]
-        public void TestSampleGame()
-        {
+        public void TestSampleGame() {
             game.Add(1);
             game.Add(4);
             game.Add(4);
@@ -116,19 +101,21 @@ namespace Game.Test
         }
 
         [Test]
-        public void TestHeartBreak()
-        {
-            for (int i = 0; i < 11; i++)
+        public void TestHeartBreak() {
+            for (int i = 0; i < 11; i++) {
                 game.Add(10);
+            }
+
             game.Add(9);
             Assert.AreEqual(299, game.Score);
         }
 
         [Test]
-        public void TestTenthFrameSpare()
-        {
-            for (int i = 0; i < 9; i++)
+        public void TestTenthFrameSpare() {
+            for (int i = 0; i < 9; i++) {
                 game.Add(10);
+            }
+
             game.Add(9);
             game.Add(1);
             game.Add(1);
