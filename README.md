@@ -14,4 +14,4 @@ Sorry, I forgot where MinStack came from.
 
 # Code style
 
-According to *Code Complete Second Edition*, I choose a style indicating logical structure of my code.
+According to *Code Complete Second Edition*, I choose K&R style which improves comprehending logical structure of the code.
