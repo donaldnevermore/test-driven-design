@@ -1,10 +1,13 @@
 using NUnit.Framework;
 
-namespace PrimeGenerator.Test {
+namespace PrimeGenerator.Test
+{
     [TestFixture]
-    public class PrimeGeneratorTest {
+    public class PrimeGeneratorTest
+    {
         [Test]
-        public void TestPrimes() {
+        public void TestPrimes()
+        {
             int[] nullArray = PrimeGenerator.GeneratePrimeNumbers(0);
             Assert.AreEqual(nullArray.Length, 0);
 
@@ -23,20 +26,26 @@ namespace PrimeGenerator.Test {
         }
 
         [Test]
-        public void TestExhaustive() {
-            for (int i = 2; i < 500; i++) {
+        public void TestExhaustive()
+        {
+            for (int i = 2; i < 500; i++)
+            {
                 VerifyPrimeList(PrimeGenerator.GeneratePrimeNumbers(i));
             }
         }
 
-        private void VerifyPrimeList(int[] list) {
-            for (int i = 0; i < list.Length; i++) {
+        private void VerifyPrimeList(int[] list)
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
                 VerifyPrime(list[i]);
             }
         }
 
-        private void VerifyPrime(int n) {
-            for (int factor = 2; factor < n; factor++) {
+        private void VerifyPrime(int n)
+        {
+            for (int factor = 2; factor < n; factor++)
+            {
                 Assert.IsTrue(n % factor != 0);
             }
         }

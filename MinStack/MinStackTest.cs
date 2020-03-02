@@ -1,11 +1,14 @@
 using System;
 using NUnit.Framework;
 
-namespace MinStack.Test {
+namespace MinStack.Test
+{
     [TestFixture]
-    public class MinStackTest {
+    public class MinStackTest
+    {
         [Test]
-        public void Test() {
+        public void Test()
+        {
             var stack = new MinStack();
             stack.Push(5);
             stack.Push(6);
@@ -14,7 +17,8 @@ namespace MinStack.Test {
         }
 
         [Test]
-        public void TestException() {
+        public void TestException()
+        {
             var stack = new MinStack();
             Assert.Throws<Exception>(() => { stack.GetMin(); });
         }
