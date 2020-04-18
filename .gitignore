@@ -6,3 +6,5 @@
 # Compiled Files
 bin
 obj
+
+*.csproj.user
