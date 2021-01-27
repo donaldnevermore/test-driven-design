@@ -1,0 +1,14 @@
+{
+    "1": {
+        "numFields": 2,
+        "messageName": "Temperature",
+        "1": {
+            "fieldType": 0,
+            "fieldName": "averageTemperature"
+        },
+        "2": {
+            "fieldType": 0,
+            "fieldName": "temperatureRange"
+        }
+    }
+}
