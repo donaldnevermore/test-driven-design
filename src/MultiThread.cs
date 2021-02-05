@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace TestDrivenDesign {
     public class MultiThread {
         private static bool done;
-        private static readonly object locker = new object();
+        private static readonly object locker = new();
 
         public static void Run() {
             var signal = new ManualResetEvent(false);
