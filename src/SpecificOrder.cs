@@ -50,6 +50,5 @@ namespace TestDrivenDesign {
         }
         private static void DisplayExpenseSummary(string a) { }
         private static void DisplayExpenseSummary(string a, string b, string c, string d) { }
-
     }
 }

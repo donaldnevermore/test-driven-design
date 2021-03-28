@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace TestDrivenDesign {
     enum FieldType {
@@ -16,36 +16,40 @@ namespace TestDrivenDesign {
     }
 
     interface AbstractField {
-        void ReadAndPrint(string str, JToken message);
+        void ReadAndPrint(string str, JsonElement message);
     }
 
     class FloatingPointField : AbstractField {
-        public void ReadAndPrint(string str, JToken message) {
-            Console.WriteLine((double)message[str]);
+        public void ReadAndPrint(string str, JsonElement message) {
+            Console.WriteLine(message.GetProperty(str).GetDouble());
         }
     }
 
     public class Process {
         public static void Run() {
-            var messagesJson = File.ReadAllText(@"E:/Monorepos/test-driven-design/src/messages.json");
-            var messages = JsonConvert.DeserializeObject<JArray>(messagesJson);
-            var descriptionJson = File.ReadAllText(@"E:/Monorepos/test-driven-design/src/description.json");
-            var description = JsonConvert.DeserializeObject<JObject>(descriptionJson);
+            var messagesJson = File.ReadAllText(AppContext.BaseDirectory + "src/messages.json");
+            var messages = JsonSerializer.Deserialize<List<JsonElement>>(messagesJson);
+            if (messages is null) {
+                throw new Exception("messages cannot be null.");
+            }
 
-            var field = new AbstractField[(int)FieldType.Last];
+            var descriptionJson = File.ReadAllText(AppContext.BaseDirectory + "src/description.json");
+            var description = JsonSerializer.Deserialize<JsonElement>(descriptionJson);
 
-            field[(int)FieldType.FloatingPoint] = new FloatingPointField();
+            var field = new AbstractField[(int) FieldType.Last];
+
+            field[(int) FieldType.FloatingPoint] = new FloatingPointField();
 
             foreach (var message in messages) {
-                var msgId = (int)message["id"];
-                var fieldDescription = description[msgId.ToString()];
-                var numFieldsInMessage = (int)fieldDescription["numFields"];
+                var msgId = message.GetProperty("id").GetInt32();
+                var fieldDescription = description.GetProperty(msgId.ToString());
+                var numFieldsInMessage = fieldDescription.GetProperty("numFields").GetInt32();
 
                 var fieldIdx = 1;
                 while (fieldIdx <= numFieldsInMessage) {
-                    var fieldValue = fieldDescription[fieldIdx.ToString()];
-                    var fieldName = (string)fieldValue["fieldName"];
-                    var fieldType = (int)fieldValue["fieldType"];
+                    var fieldValue = fieldDescription.GetProperty(fieldIdx.ToString());
+                    var fieldName = fieldValue.GetProperty("fieldName").GetString();
+                    var fieldType = fieldValue.GetProperty("fieldType").GetInt32();
 
                     var concreteField = field[fieldType];
                     concreteField.ReadAndPrint(fieldName, message);
