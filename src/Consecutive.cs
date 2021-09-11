@@ -3,21 +3,29 @@ using System;
 namespace TestDrivenDesign {
     public class Consecutive {
         public static void Find() {
-            string[] line = Console.ReadLine().Split(' ');
-            int len = int.Parse(line[0]);
-            int operations = int.Parse(line[1]);
-            string str = Console.ReadLine();
+            var line = Console.ReadLine()?.Split(' ');
+            if (line is null) {
+                return;
+            }
 
-            int result = WindowSolve(str, operations, len);
+            var len = int.Parse(line[0]);
+            var operations = int.Parse(line[1]);
+
+            var str = Console.ReadLine();
+            if (str is null) {
+                return;
+            }
+
+            var result = WindowSolve(str, operations, len);
             Console.WriteLine(result);
         }
 
         private static int WindowSolve(string str, int operations, int len) {
-            int left = 0;
-            int right = 0;
-            int aCount = 0;
-            int bCount = 0;
-            int result = 0;
+            var left = 0;
+            var right = 0;
+            var aCount = 0;
+            var bCount = 0;
+            var result = 0;
 
             while (right < len) {
                 if (str[right] == 'a') {

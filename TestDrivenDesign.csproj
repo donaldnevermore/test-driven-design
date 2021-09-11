@@ -1,25 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="nunit" Version="3.13.1"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3"/>
-
-        <Content Include="src/messages.json">
+        <Content Include="data\description.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </Content>
-        <Content Include="src/description.json">
+        <Content Include="data\messages.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </Content>
+        <Content Include="data\Test.csx">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
+        <PackageReference Include="NUnit" Version="3.13.2"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0"/>
+        <PackageReference Include="CS-Script" Version="4.1.0"/>
+        <PackageReference Include="Dotnet.Script" Version="1.2.1"/>
+    </ItemGroup>
 </Project>

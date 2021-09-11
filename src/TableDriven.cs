@@ -26,19 +26,19 @@ namespace TestDrivenDesign {
     }
 
     public class Process {
-        public static void Run() {
-            var messagesJson = File.ReadAllText(AppContext.BaseDirectory + "src/messages.json");
+        public static void Start() {
+            var messagesJson = File.ReadAllText(AppContext.BaseDirectory + "data/messages.json");
             var messages = JsonSerializer.Deserialize<List<JsonElement>>(messagesJson);
             if (messages is null) {
                 throw new Exception("messages cannot be null.");
             }
 
-            var descriptionJson = File.ReadAllText(AppContext.BaseDirectory + "src/description.json");
+            var descriptionJson = File.ReadAllText(AppContext.BaseDirectory + "data/description.json");
             var description = JsonSerializer.Deserialize<JsonElement>(descriptionJson);
 
-            var field = new AbstractField[(int) FieldType.Last];
+            var field = new AbstractField[(int)FieldType.Last];
 
-            field[(int) FieldType.FloatingPoint] = new FloatingPointField();
+            field[(int)FieldType.FloatingPoint] = new FloatingPointField();
 
             foreach (var message in messages) {
                 var msgId = message.GetProperty("id").GetInt32();
@@ -48,7 +48,7 @@ namespace TestDrivenDesign {
                 var fieldIdx = 1;
                 while (fieldIdx <= numFieldsInMessage) {
                     var fieldValue = fieldDescription.GetProperty(fieldIdx.ToString());
-                    var fieldName = fieldValue.GetProperty("fieldName").GetString();
+                    var fieldName = fieldValue.GetProperty("fieldName").GetString() ?? "";
                     var fieldType = fieldValue.GetProperty("fieldType").GetInt32();
 
                     var concreteField = field[fieldType];

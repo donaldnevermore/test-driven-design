@@ -3,22 +3,22 @@ using System;
 namespace TestDrivenDesign {
     public class ThreeTeams {
         public static void Start() {
-            int times = int.Parse(Console.ReadLine());
+            var times = int.Parse(Console.ReadLine());
             var lines = new string[times];
 
-            for (int i = 0; i < times; i++) {
+            for (var i = 0; i < times; i++) {
                 string line = Console.ReadLine();
                 lines[i] = line;
             }
 
             foreach (string line in lines) {
                 string[] array = line.Split(' ');
-                int total = int.Parse(array[0]);
-                int played = int.Parse(array[1]);
-                int diff1 = int.Parse(array[2]);
-                int diff2 = int.Parse(array[3]);
+                var total = int.Parse(array[0]);
+                var played = int.Parse(array[1]);
+                var diff1 = int.Parse(array[2]);
+                var diff2 = int.Parse(array[3]);
 
-                bool result = CanEqual(total, played, diff1, diff2);
+                var result = CanEqual(total, played, diff1, diff2);
                 Console.WriteLine(result ? "yes" : "no");
             }
         }
@@ -28,21 +28,21 @@ namespace TestDrivenDesign {
                 return false;
             }
 
-            int remain = total - played;
+            var remain = total - played;
 
             // t1 < t2 < t3
-            int condition1 = played - diff1 - diff1 - diff2;
+            var condition1 = played - diff1 - diff1 - diff2;
             if (IsValid(condition1)) {
-                int need = diff1 + diff1 + diff2;
+                var need = diff1 + diff1 + diff2;
                 if (IsValid(remain - need)) {
                     return true;
                 }
             }
 
             // t1 > t2 > t3
-            int condition2 = played - diff1 - diff1 + diff2;
+            var condition2 = played - diff1 - diff1 + diff2;
             if (IsValid(condition2)) {
-                int need = diff1 + diff2;
+                var need = diff1 + diff2;
                 if (IsValid(remain - need)) {
                     return true;
                 }
@@ -51,14 +51,14 @@ namespace TestDrivenDesign {
             // t1 < t2 > t3
             int condition3 = played + diff1 + diff1 + diff2;
             if (IsValid(condition3)) {
-                int need = diff1 + diff1 + diff2;
+                var need = diff1 + diff1 + diff2;
                 if (IsValid(remain - need)) {
                     return true;
                 }
             }
 
             // t1 > t2 < t3
-            int condition4 = played - diff1 - diff1 - diff2;
+            var condition4 = played - diff1 - diff1 - diff2;
             if (IsValid(condition4)) {
                 int need;
                 if (diff1 >= diff2) {

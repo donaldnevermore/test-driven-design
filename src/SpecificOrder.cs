@@ -35,20 +35,27 @@ namespace TestDrivenDesign {
         private static string InitializeExpenseData(string data) {
             return data;
         }
+
         private static string ComputeMarketingExpense(string data) {
             return data;
-
         }
+
         private static string ComputeSalesExpense(string data) {
             return data;
         }
+
         private static string ComputeTravelExpense(string data) {
             return data;
         }
+
         private static string ComputePersonnelExpense(string data) {
             return data;
         }
-        private static void DisplayExpenseSummary(string a) { }
-        private static void DisplayExpenseSummary(string a, string b, string c, string d) { }
+
+        private static void DisplayExpenseSummary(string a) {
+        }
+
+        private static void DisplayExpenseSummary(string a, string b, string c, string d) {
+        }
     }
 }

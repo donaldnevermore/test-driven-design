@@ -7,7 +7,7 @@ namespace TestDrivenDesign {
         private static bool done;
         private static readonly object locker = new();
 
-        public static void Run() {
+        public static void Start() {
             var signal = new ManualResetEvent(false);
             var thread = new Thread(() => {
                 Console.WriteLine("Waiting for signal...");
@@ -58,7 +58,7 @@ namespace TestDrivenDesign {
 
         private static void Go2() {
             try {
-                throw null;
+                throw new Exception("test");
             }
             catch (Exception ex) {
                 Console.WriteLine(ex);
